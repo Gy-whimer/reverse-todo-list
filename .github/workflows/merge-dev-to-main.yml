@@ -40,6 +40,8 @@ jobs:
 
       - name: Run E2E tests
         run: |
+          cd e2e-tests
+          npm install
           npm test
 
       - name: Log in to Docker Hub
