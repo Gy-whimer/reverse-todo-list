@@ -48,8 +48,6 @@ jobs:
         run: |
           cd e2e-tests
           npm install
-          npx webdriver-manager clean
-          npx webdriver-manager update --versions.chrome 133.0.6943.53
           npm test
 
       - name: Log in to Docker Hub
