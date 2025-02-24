@@ -18,8 +18,10 @@ describe('E2E Test', function () {
         vars = {}
     })
     afterEach(async function () {
-        await driver.quit();
-    })
+        if (driver) {
+            await driver.quit();
+        }
+    });
 
     it('Should add a task', async function () {
         await driver.get("http://localhost:3000/")
