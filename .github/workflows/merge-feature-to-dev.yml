@@ -11,6 +11,10 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -45,17 +49,11 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { data: pullRequest } = await github.rest.pulls.get({
+            const { data: pullRequest } = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: ${{ github.event.pull_request.number }},
+              title: 'Merge dev into main',
+              head: 'dev',
+              base: 'main',
             });
-            if (pullRequest.merged) {
-              await github.rest.pulls.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: 'Merge dev into main',
-                head: 'dev',
-                base: 'main',
-              });
-            }
+            console.log(`Created PR: ${pullRequest.html_url}`);
