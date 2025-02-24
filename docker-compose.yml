@@ -15,6 +15,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: gyro725/backend:latest
     container_name: backend
     restart: always
     ports:
@@ -31,11 +32,12 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: http://localhost:3001
+        REACT_APP_API_URL: http://backend:3001  # Use the backend service name
+    image: gyro725/frontend:latest
     container_name: frontend
     restart: always
     ports:
-      - "3000:5000"
+      - "3000:3000"
     depends_on:
       - backend
     networks:
