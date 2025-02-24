@@ -23,13 +23,14 @@ describe('E2E Test', function () {
     });
 
     it('Should add a task', async function () {
-        await driver.get("http://localhost:3000/")
-        await driver.manage().window().setRect({width: 1510, height: 871})
-        await driver.findElement(By.css("input")).click()
-        await driver.findElement(By.css("input")).sendKeys("this is a task")
-        await driver.findElement(By.css("button:nth-child(2)")).click()
-        await driver.findElement(By.css("button:nth-child(3)")).click()
-        await driver.findElement(By.css("button:nth-child(4)")).click()
-    })
+    await driver.get("http://localhost:3000/");
+    await driver.wait(until.titleIs('Your App Title'), 10000); // 等待页面标题加载
+    await driver.manage().window().setRect({width: 1510, height: 871});
+    await driver.findElement(By.css("input")).click();
+    await driver.findElement(By.css("input")).sendKeys("this is a task");
+    await driver.findElement(By.css("button:nth-child(2)")).click();
+    await driver.findElement(By.css("button:nth-child(3)")).click();
+    await driver.findElement(By.css("button:nth-child(4)")).click();
+});
 })
 
