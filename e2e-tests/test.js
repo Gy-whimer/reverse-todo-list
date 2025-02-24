@@ -11,12 +11,11 @@ describe('E2E Test', function () {
     beforeEach(async function () {
         let options = new chrome.Options();
         options.addArguments('--headless'); // Run in headless mode
-        // create a detached driver
-        driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build()
-        // set the driver to be detached from the browser
-        driver.manage().setTimeouts({implicit: 0})
-        vars = {}
-    })
+        driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
+        // Set a reasonable implicit wait time (e.g., 10 seconds)
+        await driver.manage().setTimeouts({implicit: 10000});
+        vars = {};
+    });
     afterEach(async function () {
         if (driver) {
             await driver.quit();
