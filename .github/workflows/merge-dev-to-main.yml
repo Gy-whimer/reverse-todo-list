@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install backend dependencies
         run: |
@@ -38,11 +38,18 @@ jobs:
           cd frontend
           npm test
 
+      - name: Start application
+        run: |
+          cd frontend
+          npm start &
+          sleep 10
+
       - name: Run E2E tests
         run: |
           cd e2e-tests
           npm install
-          npx webdriver-manager update
+          npx webdriver-manager clean
+          npx webdriver-manager update --versions.chrome 133.0.6943.53
           npm test
 
       - name: Log in to Docker Hub
